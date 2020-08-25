@@ -152,6 +152,7 @@ class Canvas extends EventEmit {
         for (let i = 0, len = children.length; i < len; i++) {
           const child = children[i];
           child.draw(context);
+          self.setAriaLabel();
         }
 
         // 支付宝，微信小程序，需要调context.draw才能完成绘制， 所以这里直接判断是否有.draw方法
@@ -174,6 +175,19 @@ class Canvas extends EventEmit {
     } else {
       drawInner();
     }
+  }
+
+  // 设置无障碍文本
+  setAriaLabel() {
+    const el = this.get('el');
+    const children = this.get('children');
+    const childAriaLabel = [];
+    for (let i = 0, len = children.length; i < len; i++) {
+      const child = children[i];
+      const ariaLabel = child.getAriaLabel();
+      ariaLabel && childAriaLabel.push(ariaLabel);
+    }
+    el.setAttribute && el.setAttribute('aria-label', childAriaLabel.join(' '));
   }
 
   destroy() {

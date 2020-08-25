@@ -215,6 +215,16 @@ class Element {
     return this.get('visible');
   }
 
+  getAriaLabel() {
+    if (this.get('destroyed') || !this.get('visible') || !this.get('aria')) {
+      return '';
+    }
+    return this._getAriaLabel();
+  }
+
+  _getAriaLabel() {
+  }
+
   _removeFromParent() {
     const parent = this.get('parent');
     if (parent) {

@@ -16,11 +16,30 @@ class Group extends Element {
 
   drawInner(context) {
     const children = this.get('children');
+    const aria = this.get('aria');
+    const childAriaLabel = [];
     for (let i = 0, len = children.length; i < len; i++) {
       const child = children[i];
       child.draw(context);
+      if (aria) {
+        child.set('aria', aria);
+        const ariaLabel = child.getAriaLabel();
+        ariaLabel && childAriaLabel.push(ariaLabel);
+      }
     }
+    this.set('childAriaLabel', childAriaLabel);
     return this;
+  }
+
+  _getAriaLabel() {
+    const ariaLabel = this.get('ariaLabel');
+    const childAriaLabel = (this.get('childAriaLabel') || []).join(' ');
+    // 2个都有时拼接成完整句子
+    if (ariaLabel && childAriaLabel) {
+      return `${ariaLabel}: ${childAriaLabel};`;
+    }
+    // 只有1个，或者都没有
+    return ariaLabel || childAriaLabel;
   }
 
   getBBox() {
