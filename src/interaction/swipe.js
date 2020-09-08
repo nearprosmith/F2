@@ -2,7 +2,7 @@ import { mix } from '../util/common';
 
 import Interaction from './base';
 import Chart from '../chart/chart';
-import * as FilterPlugin from '../plugin/filter';
+// import * as FilterPlugin from '../plugin/filter';
 import MoveMixin from './mixin/move';
 import UpdateScaleMixin from './mixin/update-scale';
 
@@ -29,7 +29,8 @@ class Swipe extends Interaction {
     super(cfg, chart);
     const self = this;
     const { hammer, threshold, velocity } = self;
-
+    chart.set('limitInPlot', true);
+    
     if (hammer) {
       hammer.get('swipe').set({
         direction: 6, // only support horizontal
@@ -38,14 +39,14 @@ class Swipe extends Interaction {
       });
     }
 
-    chart.registerPlugins([ FilterPlugin, {
-      changeData() {
-        self.limitRange = {};
-      },
-      clear() {
-        self.limitRange = {};
-      }
-    }]);
+    // chart.registerPlugins([ FilterPlugin, {
+    //   changeData() {
+    //     self.limitRange = {};
+    //   },
+    //   clear() {
+    //     self.limitRange = {};
+    //   }
+    // }]);
     self.mode = 'x';
     mix(self, UpdateScaleMixin, MoveMixin);
   }

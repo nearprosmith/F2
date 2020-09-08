@@ -2,7 +2,7 @@ import { mix, each, directionEnabled } from '../util/common';
 import { getLimitRange, getFieldRange } from './helper';
 import Interaction from './base';
 import Chart from '../chart/chart';
-import * as FilterPlugin from '../plugin/filter';
+// import * as FilterPlugin from '../plugin/filter';
 import UpdateScaleMixin from './mixin/update-scale';
 
 class Pinch extends Interaction {
@@ -34,17 +34,18 @@ class Pinch extends Interaction {
     hammer.get('pinch').set({ // open pinch recognizer
       enable: true
     });
+    chart.set('limitInPlot', true);
 
-    chart.registerPlugins([ FilterPlugin, {
-      changeData() {
-        self.limitRange = {};
-        self.originTicks = null;
-      },
-      clear() {
-        self.limitRange = {};
-        self.originTicks = null;
-      }
-    }]);
+    // chart.registerPlugins([ FilterPlugin, {
+    //   changeData() {
+    //     self.limitRange = {};
+    //     self.originTicks = null;
+    //   },
+    //   clear() {
+    //     self.limitRange = {};
+    //     self.originTicks = null;
+    //   }
+    // }]);
 
     mix(self, UpdateScaleMixin);
   }
