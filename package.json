@@ -110,10 +110,6 @@
     "watch": "webpack --config webpack-dev.config.js"
   },
   "pre-commit": {
-    "run": [
-      "lint",
-      "test"
-    ],
     "silent": false
   },
   "jest": {

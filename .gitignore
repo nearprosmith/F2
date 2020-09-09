@@ -61,9 +61,9 @@ typings/
 # dotenv environment variables file
 .env
 
-build
-dist
-lib
+#build
+#dist
+#lib
 es
 temp
 .DS_Store
